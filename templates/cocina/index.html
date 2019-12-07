@@ -1,0 +1,50 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cocina</title>
+    <script src="{% static 'js/jquery-3.4.1.min.js'%}"></script>
+    <script src="{% static 'js/bootstrap.min.js'%}"></script>
+    <script src="{% static 'js/pedido-cocina.js'%}"></script>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+</head>
+<body style="background-color: white;">
+    <div class="well">
+        <div class="row">
+            <div class="col-md-12" style="background-color: lightgray;">
+                <div class="text-center">
+                    <h1>Pedidos pendientes</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <table class="table table-bordered">
+                 <thead>
+                     <tr>
+                         <th>
+                            PEDIDO 
+                         </th>
+                         <th class="text-center">
+                             CANTIDAD
+                         </th>
+                         <th class="text-center">
+                            MESA
+                        </th>
+                     </tr>
+                 </thead>
+                 <tbody id="id_lista_pedidos">
+
+                 </tbody>
+                </table>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+</body>
+</html>

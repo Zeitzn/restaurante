@@ -1,0 +1,204 @@
+{% extends 'base/base.html' %}
+{% load staticfiles %}
+{% block content %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Inicio</h1>
+    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+</div>
+
+<div class="row">
+    <table class="table table-bordered table-hover text-center">
+        <thead>
+            <tr>
+                <td>MESA</td>
+                <td>TOTAL</td>
+                <td>BOLETA</td>
+                <td>FACTURA</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pedido in pedidos %}
+            <tr>
+                <td>Mesa {{pedido.mesa}}</td>
+                <td>{{pedido.total}}</td>
+                <td><button class="btn btn-primary btn-sm"
+                        onclick="openModal('boleta',{{pedido.id}},{{pedido.mesa}})">Boleta</button></td>
+                <td><button class="btn btn-primary btn-sm"
+                        onclick="openModal('factura',{{pedido.id}},{{pedido.mesa}})">Factura</button></td>
+                <td><button class="btn btn-primary btn-sm">Pag</button></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal Factura -->
+<div class="modal fade" id="modalFactura" tabindex="-1" role="dialog" aria-labelledby="modalFacturaTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalFacturaTitle"><b>Factura de la mesa N° </b><b class="mesa"></b></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="id-content-factura">
+                <div class="row">
+                    <div class="col-md-8 col-lg-8 col-sm-8 col-sm-8">
+asd
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-4 col-sm-4" style="height: 100px; border:1px solid black;">
+
+                    </div>
+                </div>
+                <div class="row small">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="">R.U.C.</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="">Señor(es)</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="">Dirección</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-hover table-bordered small">
+                            <thead class="text-center">
+                                <tr>
+                                    <th style="width: 10%;">CANTIDAD</th>
+                                    <th style="width: 50%;">DESCRIPCION</th>
+                                    <th style="width: 20%;">PRECIO UNITARIO</th>
+                                    <th style="width: 20%;">VALOR DE VENTA</th>
+                                </tr>
+                            </thead>
+                            <tbody id="id-body-factura"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="emitir()">Emitir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Boleta -->
+<div class="modal fade" id="modalBoleta" tabindex="-1" role="dialog" aria-labelledby="modalBoletaTitle"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalBoletaTitle"><b>Boleta de la mesa N° </b><b class="mesa"></b></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function openModal(tipo, pedido_id, mesa) {
+        $(".mesa").html(mesa);
+        $.ajax({
+            method: 'get',
+            url: '/pedido/detallesMesa/' + mesa,
+            success: data => {
+                console.log(data)
+                let detalles = data['detalles'];
+                let total = 0;
+                console.log(detalles)
+
+                $("#id-body-factura").html('');
+
+                detalles.forEach(element => {
+                    if (tipo == "factura") {
+                        $("#id-body-factura").append(
+                            '<tr>'
+                            + '<td class="text-center">' + element['cantidad'] + '</td>'
+                            + '<td>' + element['nombre'] + '</td>'
+                            + '<td style="text-align:right">' + element['precio'] + '</td>'
+                            + '<td style="text-align:right">' + (element['cantidad'] * element['precio']).toFixed(2) + '</td>'
+                            + '</tr>'
+                        );
+
+                        total += element['cantidad'] * element['precio'];
+                    } else {
+
+                    }
+                });
+                let igv=total*0.18;
+                $("#id-body-factura").append(
+                    '<tr>'
+                    + '<td class="text-center" colspan="2" style="border-bottom:1px solid white; border-left:1px solid white;"></td>'
+                    + '<td style="text-align:right"><b>Sub. Total S/</b></td>'
+                    + '<td style="text-align:right">' + (total -igv).toFixed(2) + '</td>'
+                    + '</tr>'
+                    +'<tr>'
+                    + '<td class="text-center" colspan="2" style="border-bottom:1px solid white; border-left:1px solid white;"></td>'
+                    + '<td style="text-align:right"><b>I.G.V. S/</b></td>'
+                    + '<td style="text-align:right">' + igv.toFixed(2) + '</td>'
+                    + '</tr>'
+                    +'<tr>'
+                    + '<td class="text-center" colspan="2" style="border-bottom:1px solid white; border-left:1px solid white;"></td>'
+                    + '<td style="text-align:right"><b>TOTAL S/</b></td>'
+                    + '<td style="text-align:right">' + total.toFixed(2) + '</td>'
+                    + '</tr>'
+                );
+
+                console.log(total)
+
+                if (tipo == "factura") {
+                    $("#modalFactura").modal();
+                } else {
+                    $("#modalBoleta").modal();
+                }
+
+            }
+        })
+
+    }
+
+    function emitir(){
+        // print()
+
+        // $("#modalFactura").print();
+
+        // var restorepage = $('body').html();
+        // var printcontent = $('#modalFactura').clone();
+        // $('body').empty().html(printcontent);
+        // window.print();
+        // $('body').html(restorepage);
+
+        $("#id-content-factura").printThis({
+            importCSS: true,
+        });
+    }
+</script>
+{% endblock %}
