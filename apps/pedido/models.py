@@ -7,6 +7,7 @@ class Pedido(models.Model):
     activo=models.BooleanField(default=True)
     tipo=models.CharField(max_length=7, null=True)
     numero=models.CharField(max_length=7, null=True)
+    fecha=models.DateField(null=True)
     class Meta:
         db_table='pedido'
     def __str__(self):

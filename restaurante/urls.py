@@ -23,5 +23,5 @@ urlpatterns = [
     path('', include('apps.producto.urls')),
     path('pedido/', include('apps.pedido.urls')),
     path('caja/', include('apps.caja.urls')),
-    
+    path('recibo/', include('apps.recibo.urls')),    
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

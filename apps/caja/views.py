@@ -29,7 +29,8 @@ def login(request):
 
 def home(request):
     # pedidos=Pedido.objects.all().values('mesa')
-    pedidos=Pedido.objects.raw('select * from pedido group by mesa')
+    # pedidos=Pedido.objects.raw('select * from pedido group by mesa')
+    pedidos=Pedido.objects.raw('select id,mesa,SUM(total) AS total from pedido where activo=1 GROUP BY mesa')
     context={
         'pedidos':pedidos
     }

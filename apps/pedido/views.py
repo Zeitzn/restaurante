@@ -79,7 +79,6 @@ def listaPedidos(request):
         lista_pedidos=[]
 
         for row in pedidos:
-            print (row)
 
             cantidad=row[0]
             total=row[2]

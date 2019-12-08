@@ -39,38 +39,42 @@
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
+            <form id="form-factura">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalFacturaTitle"><b>Factura de la mesa N° </b><b class="mesa"></b></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+            
             <div class="modal-body" id="id-content-factura">
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-md-8 col-lg-8 col-sm-8 col-sm-8">
-asd
+
                     </div>
                     <div class="col-md-4 col-lg-4 col-sm-4 col-sm-4" style="height: 100px; border:1px solid black;">
 
                     </div>
-                </div>
+                </div> -->
+                <input type="hidden" name="" id="id-mesa-factura" required>
+                <input type="hidden" name="" id="id-total-factura" required>
                 <div class="row small">
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="">R.U.C.</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" id="id-ruc-factura" required>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="">Señor(es)</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" id="id-cliente-factura" required>
                         </div>
                     </div>
                     <div class="col-md-5">
                         <div class="form-group">
                             <label for="">Dirección</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" id="id-direccion-factura" required>
                         </div>
                     </div>
                 </div>
@@ -93,8 +97,9 @@ asd
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" onclick="emitir()">Emitir</button>
+                <button type="submit" class="btn btn-primary">Emitir</button>
             </div>
+            </form>
         </div>
     </div>
 </div>
@@ -171,10 +176,12 @@ asd
                     + '<td style="text-align:right">' + total.toFixed(2) + '</td>'
                     + '</tr>'
                 );
+                $("#id-total-factura").val(total);
 
                 console.log(total)
 
                 if (tipo == "factura") {
+                    $("#id-mesa-factura").val(mesa)
                     $("#modalFactura").modal();
                 } else {
                     $("#modalBoleta").modal();
@@ -185,20 +192,28 @@ asd
 
     }
 
-    function emitir(){
-        // print()
-
-        // $("#modalFactura").print();
-
-        // var restorepage = $('body').html();
-        // var printcontent = $('#modalFactura').clone();
-        // $('body').empty().html(printcontent);
-        // window.print();
-        // $('body').html(restorepage);
-
-        $("#id-content-factura").printThis({
-            importCSS: true,
+    // function emitirFactura(){
+    $("#form-factura").on('submit',function(e){
+        e.preventDefault()
+        var total=numeroALetras($("#id-total-factura").val(), {
+            plural: 'SOLES',
+            singular: 'SOL',
+            centPlural: 'CENTIMOS',
+            centSingular: 'CENTIMO'
         });
-    }
+        mesa=$("#id-mesa-factura").val()
+        cliente=$("#id-cliente-factura").val()
+        direccion=$("#id-direccion-factura").val()
+        ruc=$("#id-ruc-factura").val()
+        // print()
+        window.open("/recibo/factura/" + mesa+'/'+cliente+'/'+ruc+'/'+direccion+'/'+total, '_blank');
+        $("#modalFactura").modal('hide');
+    })  
+    // }
+
+    // $("#form-factura").on('submit',function(e){
+    //     e.preventDefault();
+    //     emitirFactura();
+    // })
 </script>
 {% endblock %}
