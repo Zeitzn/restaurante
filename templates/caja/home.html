@@ -40,15 +40,16 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <form id="form-factura">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalFacturaTitle"><b>Factura de la mesa N° </b><b class="mesa"></b></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            
-            <div class="modal-body" id="id-content-factura">
-                <!-- <div class="row">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalFacturaTitle"><b>Factura de la mesa N° </b><b class="mesa"></b>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body" id="id-content-factura">
+                    <!-- <div class="row">
                     <div class="col-md-8 col-lg-8 col-sm-8 col-sm-8">
 
                     </div>
@@ -56,49 +57,49 @@
 
                     </div>
                 </div> -->
-                <input type="hidden" name="" id="id-mesa-factura" required>
-                <input type="hidden" name="" id="id-total-factura" required>
-                <div class="row small">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="">R.U.C.</label>
-                            <input type="text" class="form-control" id="id-ruc-factura" required>
+                    <input type="hidden" name="" id="id-mesa-factura" required>
+                    <input type="hidden" name="" id="id-total-factura" required>
+                    <div class="row small">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="">R.U.C.</label>
+                                <input type="text" class="form-control" id="id-ruc-factura" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="">Señor(es)</label>
+                                <input type="text" class="form-control" id="id-cliente-factura" required>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label for="">Dirección</label>
+                                <input type="text" class="form-control" id="id-direccion-factura" required>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="">Señor(es)</label>
-                            <input type="text" class="form-control" id="id-cliente-factura" required>
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <div class="form-group">
-                            <label for="">Dirección</label>
-                            <input type="text" class="form-control" id="id-direccion-factura" required>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <table class="table table-hover table-bordered small">
-                            <thead class="text-center">
-                                <tr>
-                                    <th style="width: 10%;">CANTIDAD</th>
-                                    <th style="width: 50%;">DESCRIPCION</th>
-                                    <th style="width: 20%;">PRECIO UNITARIO</th>
-                                    <th style="width: 20%;">VALOR DE VENTA</th>
-                                </tr>
-                            </thead>
-                            <tbody id="id-body-factura"></tbody>
-                        </table>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-hover table-bordered small">
+                                <thead class="text-center">
+                                    <tr>
+                                        <th style="width: 10%;">CANTIDAD</th>
+                                        <th style="width: 50%;">DESCRIPCION</th>
+                                        <th style="width: 20%;">PRECIO UNITARIO</th>
+                                        <th style="width: 20%;">VALOR DE VENTA</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="id-body-factura"></tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary">Emitir</button>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Emitir</button>
+                </div>
             </form>
         </div>
     </div>
@@ -107,21 +108,69 @@
 <!-- Modal Boleta -->
 <div class="modal fade" id="modalBoleta" tabindex="-1" role="dialog" aria-labelledby="modalBoletaTitle"
     aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalBoletaTitle"><b>Boleta de la mesa N° </b><b class="mesa"></b></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+            <form id="form-boleta">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalBoletaTitle"><b>Boleta de la mesa N° </b><b class="mesa"></b></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body" id="id-content-boleta">
+                    <!-- <div class="row">
+                    <div class="col-md-8 col-lg-8 col-sm-8 col-sm-8">
+
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-4 col-sm-4" style="height: 100px; border:1px solid black;">
+
+                    </div>
+                </div> -->
+                    <input type="hidden" name="" id="id-mesa-boleta" required>
+                    <input type="hidden" name="" id="id-total-boleta" required>
+                    <div class="row small">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="">DNI</label>
+                                <input type="text" class="form-control" id="id-ruc-boleta" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="">Señor(es)</label>
+                                <input type="text" class="form-control" id="id-cliente-boleta" required>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label for="">Dirección</label>
+                                <input type="text" class="form-control" id="id-direccion-boleta" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-hover table-bordered small">
+                                <thead class="text-center">
+                                    <tr>
+                                        <th style="width: 10%;">CANTIDAD</th>
+                                        <th style="width: 50%;">DESCRIPCION</th>
+                                        <th style="width: 20%;">PRECIO UNITARIO</th>
+                                        <th style="width: 20%;">VALOR DE VENTA</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="id-body-boleta"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Emitir</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -141,6 +190,7 @@
                 console.log(detalles)
 
                 $("#id-body-factura").html('');
+                $("#id-body-boleta").html('');
 
                 detalles.forEach(element => {
                     if (tipo == "factura") {
@@ -155,35 +205,52 @@
 
                         total += element['cantidad'] * element['precio'];
                     } else {
+                        $("#id-body-boleta").append(
+                            '<tr>'
+                            + '<td class="text-center">' + element['cantidad'] + '</td>'
+                            + '<td>' + element['nombre'] + '</td>'
+                            + '<td style="text-align:right">' + element['precio'] + '</td>'
+                            + '<td style="text-align:right">' + (element['cantidad'] * element['precio']).toFixed(2) + '</td>'
+                            + '</tr>'
+                        );
 
+                        total += element['cantidad'] * element['precio'];
                     }
                 });
-                let igv=total*0.18;
-                $("#id-body-factura").append(
+                let igv = total * 0.18;               
+
+
+                if (tipo == "factura") {
+                    $("#id-body-factura").append(
                     '<tr>'
                     + '<td class="text-center" colspan="2" style="border-bottom:1px solid white; border-left:1px solid white;"></td>'
                     + '<td style="text-align:right"><b>Sub. Total S/</b></td>'
-                    + '<td style="text-align:right">' + (total -igv).toFixed(2) + '</td>'
+                    + '<td style="text-align:right">' + (total - igv).toFixed(2) + '</td>'
                     + '</tr>'
-                    +'<tr>'
+                    + '<tr>'
                     + '<td class="text-center" colspan="2" style="border-bottom:1px solid white; border-left:1px solid white;"></td>'
                     + '<td style="text-align:right"><b>I.G.V. S/</b></td>'
                     + '<td style="text-align:right">' + igv.toFixed(2) + '</td>'
                     + '</tr>'
-                    +'<tr>'
+                    + '<tr>'
                     + '<td class="text-center" colspan="2" style="border-bottom:1px solid white; border-left:1px solid white;"></td>'
                     + '<td style="text-align:right"><b>TOTAL S/</b></td>'
                     + '<td style="text-align:right">' + total.toFixed(2) + '</td>'
                     + '</tr>'
                 );
-                $("#id-total-factura").val(total);
-
-                console.log(total)
-
-                if (tipo == "factura") {
+                    $("#id-total-factura").val(total);
                     $("#id-mesa-factura").val(mesa)
                     $("#modalFactura").modal();
                 } else {
+                    $("#id-body-boleta").append(
+                     '<tr>'
+                    + '<td class="text-center" colspan="2" style="border-bottom:1px solid white; border-left:1px solid white;"></td>'
+                    + '<td style="text-align:right"><b>TOTAL S/</b></td>'
+                    + '<td style="text-align:right">' + total.toFixed(2) + '</td>'
+                    + '</tr>'
+                );
+                    $("#id-total-boleta").val(total);
+                    $("#id-mesa-boleta").val(mesa)
                     $("#modalBoleta").modal();
                 }
 
@@ -192,28 +259,33 @@
 
     }
 
-    // function emitirFactura(){
-    $("#form-factura").on('submit',function(e){
+    $("#form-factura").on('submit', function (e) {
         e.preventDefault()
-        var total=numeroALetras($("#id-total-factura").val(), {
+        var total = numeroALetras($("#id-total-factura").val(), {
             plural: 'SOLES',
             singular: 'SOL',
             centPlural: 'CENTIMOS',
             centSingular: 'CENTIMO'
         });
-        mesa=$("#id-mesa-factura").val()
-        cliente=$("#id-cliente-factura").val()
-        direccion=$("#id-direccion-factura").val()
-        ruc=$("#id-ruc-factura").val()
+        mesa = $("#id-mesa-factura").val()
+        cliente = $("#id-cliente-factura").val()
+        direccion = $("#id-direccion-factura").val()
+        ruc = $("#id-ruc-factura").val()
         // print()
-        window.open("/recibo/factura/" + mesa+'/'+cliente+'/'+ruc+'/'+direccion+'/'+total, '_blank');
+        window.open("/recibo/factura/" + mesa + '/' + cliente + '/' + ruc + '/' + direccion + '/' + total, '_blank');
         $("#modalFactura").modal('hide');
-    })  
-    // }
+    })
 
-    // $("#form-factura").on('submit',function(e){
-    //     e.preventDefault();
-    //     emitirFactura();
-    // })
+    $("#form-boleta").on('submit', function (e) {
+        e.preventDefault()        
+        mesa = $("#id-mesa-boleta").val()
+        cliente = $("#id-cliente-boleta").val()
+        direccion = $("#id-direccion-boleta").val()
+        ruc = $("#id-ruc-boleta").val()
+        // print()
+        window.open("/recibo/boleta/" + mesa + '/' + cliente + '/' + ruc + '/' + direccion, '_blank');
+        $("#modalBoleta").modal('hide');
+    })
+
 </script>
 {% endblock %}

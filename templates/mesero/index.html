@@ -166,6 +166,8 @@ table {
                         success:data=>{
                             $("#confirmarModal").modal('hide');
                             alert('Pedido realizado con éxito')
+                            localStorage.removeItem('pedido');
+                            $(".input-cantidad").val('')
                             listarPedidos();
                         }
                     })

@@ -1,0 +1,183 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{titulo}}</title>    
+    <style>
+        @page {
+
+            /* @bottom-right {
+                content: "Página "counter(page) " de "counter(pages);
+            } */
+
+            /* size: landscape;
+            margin: 2.5cm 1cm 3.5cm 1cm; */
+        }
+
+        /* @page {
+            @top-right {
+                content: url('/static/assets/images/logoMTC-sm.png');
+            }
+        }
+
+        @page {
+            @bottom-left {
+                content: url('/static/assets/images/logo-lamar-sm.png');
+                margin-top: -100px;
+            }
+        } */
+
+        table {
+            width: 100%;
+        }
+
+        body {
+            font-size: 9px;
+            font-family: Arial, Helvetica, sans-serif
+        }
+
+        thead {
+            background-color: #E78102;
+            padding-top: 50px;
+        }
+
+        img {
+            width: 20%;
+        }
+
+        /* div.header {
+            display: block; text-align: right; 
+            position: running(header);
+            margin-top: -70px;
+            margin-bottom: 15px;
+        }
+
+        div.footer {
+            display: block; text-align: left;
+            position: running(footer);
+            bottom: 0;
+        } */
+
+        /* header {
+            position: fixed;
+            top: 0;
+            left: 0;
+
+            height: 2.5cm;
+            width: 100%;
+            background-color: #1a1a1a;
+        } */
+        .break-word {
+            -ms-word-break: break-all;
+            word-break: break-all;
+            word-break: break-word;
+            -webkit-hyphens: auto;
+            -moz-hyphens: auto;
+            -ms-hyphens: auto;
+            hyphens: auto;
+            width: 190px;
+            padding: 8px 8px 8px 5px;
+        }
+
+        label {
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="position: relative;">
+        <div style="width: 65%; position:relarive; height: 20px;text-align: center; background-color: white;">
+            <img src="{% static 'images/logo.png'%}" style="width: 70%;" alt="">
+        </div>
+        <div
+            style="padding-top:25px;width: 35%; position:relative; float: right; height: 20px; border: 1px solid black; border-radius: 15px; height: 100px; background-color: white; text-align: center;">
+            
+            <label for="" style="font-size: 15px;">R.U.C.:20456738749</label><br><br>
+            <label for="" style="font-size: 17px; font-weight: bold;">BOLETA DE VENTA</label><br><br>
+            <label for="" style="font-size: 15px;">N° 001 - </label><label style="font-size: 15px; color: tomato;">{{numero_boleta}}</label>
+        </div>
+    </div>
+    <!-- <div class='header'><img src="{% static 'assets/images/logoMTC.png'%}" style="width: 20%;" alt=""></div> -->
+    <div style="position: relative; top: 100px;">
+        <div>
+            <label for="">Ayacucho {{dia}} de {{mes}} del {{anio}}</label>
+        </div>
+    </div>
+
+    <div style="position: relative; top: 140px;">
+            <div>
+                <label for="">Dirección: {{direccion}}</label>
+            </div>
+        </div>
+    <div style="position:relative; top:100px;background-color: red; width: 100%;">
+        <div style="float:left;">
+            <label for="">Señor(es): {{cliente}}</label>
+        </div>
+        <div style="float: right;">
+            <label for="">DNI: {{ruc}}</label>
+        </div>
+    </div>    
+    
+
+    <div style="position: relative;top: 50px;">
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="width: 10%;padding:8px;text-align:center;">CANTIDAD</th>
+                    <th style="width: 60%;padding:8px; text-align:center;">DESCRIPCION</th>
+                    <th style="width: 15%;padding:8px; text-align:center;">PRECIO UNITARIO</th>
+                    <th style="width: 15%;padding:8px; text-align:center;">VALOR DE VENTA</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if pedidos %}
+                {% for pedido in pedidos %}
+                <tr>
+                    <td style="padding:10px 0 10px 0; text-align: center;">{{pedido.cantidad}}</td>
+                    <td style="padding:10px 0 10px 0; padding-left: 30px;">{{pedido.nombre}}</td>
+                    <td style="padding:10px 0 10px 0; text-align: right; padding-right: 15px;">{{pedido.precio}}</td>
+                    <td style="padding:10px 0 10px 0; text-align: right; padding-right: 15px;">{{pedido.valor}}</td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+                <!-- <tr>
+                    <td colspan="2" style="border-top: 1px solid black;">
+                        Son: {{total_letras}}
+                    </td>
+                    <td style="width: 10%; border-top: 1px solid black;">Sub - Total S/.</td>
+                    <td
+                        style="padding:10px 0 10px 0; text-align: right; padding-right: 15px; border-top: 1px solid black;border-left: 1px solid black;">
+                        {{subtotal}}</td>
+                </tr>
+
+                <tr>
+                    <td colspan="2"></td>
+                    <td style="width: 10%;">I.G.V. S/.</td>
+                    <td
+                        style="padding:10px 0 10px 0; text-align: right; padding-right: 15px; border-top: 1px solid black; border-left: 1px solid black;">
+                        {{igv}}</td>
+                </tr> -->
+
+                <tr>
+                    <td colspan="2" style="text-align: center;">
+                        __________________________ <br>
+                        CANCELADO
+                    </td>
+                    <td style="width: 10%;">Total S/.</td>
+                    <td
+                        style="padding:10px 0 10px 0; text-align: right; padding-right: 15px; border-top: 1px solid black; border-left: 1px solid black;border-bottom: 1px solid black;">
+                        {{total}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</body>
+
+</html>
