@@ -8,7 +8,7 @@
 </div>
 
 <div class="row">
-    <table class="table table-bordered table-hover text-center">
+    <table class="table table-bordered table-hover text-center" id="id-table-caja">
         <thead>
             <tr>
                 <td>MESA</td>
@@ -27,7 +27,7 @@
                         onclick="openModal('boleta',{{pedido.id}},{{pedido.mesa}})">Boleta</button></td>
                 <td><button class="btn btn-primary btn-sm"
                         onclick="openModal('factura',{{pedido.id}},{{pedido.mesa}})">Factura</button></td>
-                <td><button class="btn btn-primary btn-sm">Pag</button></td>
+                <td><button class="btn btn-primary btn-sm" onclick="pagarPedido({{pedido.mesa}})">Pagado</button></td>
             </tr>
             {% endfor %}
         </tbody>
@@ -271,8 +271,11 @@
         cliente = $("#id-cliente-factura").val()
         direccion = $("#id-direccion-factura").val()
         ruc = $("#id-ruc-factura").val()
-        // print()
+        $("#id-table-caja").load(" #id-table-caja>*",""); 
         window.open("/recibo/factura/" + mesa + '/' + cliente + '/' + ruc + '/' + direccion + '/' + total, '_blank');
+        setTimeout(function(){ 
+            $("#id-table-caja").load(" #id-table-caja>*",""); 
+        }, 4000);
         $("#modalFactura").modal('hide');
     })
 
@@ -282,10 +285,28 @@
         cliente = $("#id-cliente-boleta").val()
         direccion = $("#id-direccion-boleta").val()
         ruc = $("#id-ruc-boleta").val()
-        // print()
         window.open("/recibo/boleta/" + mesa + '/' + cliente + '/' + ruc + '/' + direccion, '_blank');
+        setTimeout(function(){ 
+            $("#id-table-caja").load(" #id-table-caja>*",""); 
+        }, 4000);
         $("#modalBoleta").modal('hide');
     })
+
+    function pagarPedido(mesa){
+        console.log(mesa)
+        var a=confirm("¿Está seguro que el pedido ya ha sido pagado?")
+
+        if(a){
+            $.ajax({
+                method:'get',
+                url:'/pedido/pagarPedido/'+mesa,
+                success:data=>{
+                    console.log(data)
+                    $("#id-table-caja").load(" #id-table-caja>*",""); 
+                }
+            })
+        }
+    }
 
 </script>
 {% endblock %}
