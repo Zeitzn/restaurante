@@ -1,6 +1,7 @@
 {%load staticfiles%}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,27 +15,36 @@
     <script src="{% static 'js/pedido-mesero.js'%}"></script>
 
     <style>
-    table ,tr td{
-    border:1px solid red
-}
-tbody {
-    display:block;
-    height:300px;
-    overflow:auto;
-}
-thead, tbody tr {
-    display:table;
-    width:100%;
-    table-layout:fixed;/* even columns width , fix width of table too*/
-}
-thead {
-    width: calc( 100% - 1em )/* scrollbar is average 1em/16px width, remove it from thead width */
-}
-table {
-    width:400px;
-}
+        table,
+        tr td {
+            border: 1px solid red
+        }
+
+        tbody {
+            display: block;
+            height: 300px;
+            overflow: auto;
+        }
+
+        thead,
+        tbody tr {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+            /* even columns width , fix width of table too*/
+        }
+
+        thead {
+            width: calc(100% - 1em)
+                /* scrollbar is average 1em/16px width, remove it from thead width */
+        }
+
+        table {
+            width: 400px;
+        }
     </style>
 </head>
+
 <body>
     <div class="row">
         <div class="col-md-12">
@@ -43,8 +53,9 @@ table {
     </div>
     <div class="row">
         <div class="col-md-3">
-            <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#confirmarModal">Confirmar pedido</button>
-            <button class="btn btn-primary btn-block"  data-toggle="modal" data-target="#pedidosModal">Pedidos</button>
+            <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#confirmarModal">Confirmar
+                pedido</button>
+            <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#pedidosModal">Pedidos</button>
         </div>
     </div>
     {% for item in categorias %}
@@ -54,13 +65,13 @@ table {
         </div>
     </div>
     <div class="row">
-    {% for producto in productos %}
-    {% ifequal item.nombre producto.categoria.nombre %}
-    
+        {% for producto in productos %}
+        {% ifequal item.nombre producto.categoria.nombre %}
+
         <div class="col-md-6">
             <div class="row">
                 <div class="col-md-6">
-                    <h2>{{producto.nombre}}</h2>                    
+                    <h2>{{producto.nombre}}</h2>
                 </div>
                 <div class="col-md-6">
                     <h2>S/{{producto.precio}}</h2>
@@ -70,141 +81,165 @@ table {
                     <h3>{{producto.descripcion}}</h3>
                 </div>
             </div>
-            
+
             <hr>
         </div>
-    
-    {% endifequal %}
-    {% endfor %}
+
+        {% endifequal %}
+        {% endfor %}
     </div>
     {% endfor %}
-    
-    <!-- Modal -->
-<div class="modal fade" id="confirmarModal" tabindex="-1" role="dialog" aria-labelledby="confirmarModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="confirmarModalLabel">Confirmar Pedido</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">              
-                  <div class="form-group">
-                      <label for="">Número de mesa</label>
-                       <input type="text" class="form-control" id="id_mesa">
-                  </div>              
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-primary" id="id_confirmar">Confirmar</button>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- Modal -->
-    <div class="modal fade" id="pedidosModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Pedidos</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body">
-            <table class="table table-bordered table-hover text-center">
-                <thead>
-                    <tr>
-                        <th>MESA</th>
-                        <th>PEDIDO</th>
-                        <th>CANTIDAD</th>
-                        <th>ENTREGADO</th>
-                    </tr>
-                </thead>
-                <tbody id="id-pedidos-mesero"></tbody>
-            </table>
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+    <!-- Modal -->
+    <div class="modal fade" id="confirmarModal" tabindex="-1" role="dialog" aria-labelledby="confirmarModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmarModalLabel">Confirmar Pedido</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="">Número de mesa</label>
+                        <input type="text" class="form-control" id="id_mesa">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="id_confirmar">Confirmar</button>
+                </div>
             </div>
         </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="pedidosModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Pedidos</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered table-hover text-center">
+                        <thead>
+                            <tr>
+                                <th>MESA</th>
+                                <th>PEDIDO</th>
+                                <th>CANTIDAD</th>
+                                <th>ENTREGADO</th>
+                            </tr>
+                        </thead>
+                        <tbody id="id-pedidos-mesero"></tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        $(window).on('load',()=>{
+        $(window).on('load', () => {
             window.localStorage.removeItem('pedido');
         })
 
-        function openModal(){
-            
+        function openModal() {
+
             $("#confirmarModal").modal();
-            
+
         }
 
-        $("#id_confirmar").on('click',function(){
-            var ls=localStorage.getItem('pedido');
-           
+        $("#id_confirmar").on('click', function () {
+            var ls = localStorage.getItem('pedido');
+
             console.log($("#id_confirmar").val())
-            if($("#id_mesa").val()==''){
+            if ($("#id_mesa").val() == '') {
                 alert('Escriba el número de la mesa')
-            }else{
-                if(ls==null){
+            } else {
+                if (ls == null) {
                     alert('No hay ningún pedido')
-                }else{
-                    var data={
-                        mesa:$("#id_mesa").val(),
-                        pedidos:JSON.parse(ls)
+                } else {
+                    var data = {
+                        mesa: $("#id_mesa").val(),
+                        pedidos: JSON.parse(ls)
                     }
                     $.ajax({
-                        method:'post',
-                        url:'/pedido/register',
-                        data:JSON.stringify(data),
-                        success:data=>{
+                        method: 'post',
+                        url: '/pedido/register',
+                        data: JSON.stringify(data),
+                        success: data => {
                             $("#confirmarModal").modal('hide');
                             alert('Pedido realizado con éxito')
                             localStorage.removeItem('pedido');
                             $(".input-cantidad").val('')
-                            listarPedidos();
+                            $.ajax({
+                                method:'get',
+                                url:'http://localhost:3000/notificacion',
+                                success:()=>{
+                                    listarPedidos();
+                                }
+                            })
+                            
                         }
                     })
                 }
-                
+
             }
         })
 
-        $("input[type='number'").on('input',(e)=>{
-        var cantidad=$(e.target).val();
-        var producto=$(e.target).attr('id');
+        $("input[type='number'").on('input', (e) => {
+            var cantidad = $(e.target).val();
+            var producto = $(e.target).attr('id');
 
-        var ls=localStorage.getItem('pedido')
-        var pedido=new Array();
-        var nuevoPedido=new Array();
+            var ls = localStorage.getItem('pedido')
+            var pedido = new Array();
+            var nuevoPedido = new Array();
 
-        if(ls!=null){
-            pedido=JSON.parse(ls);
-        }    
+            if (ls != null) {
+                pedido = JSON.parse(ls);
+            }
 
-        var itemActual;
+            var itemActual;
             for (var i = 0; i < pedido.length; i++) {
                 if (pedido[i].producto == producto) {
-                itemActual = pedido[i];
+                    itemActual = pedido[i];
+                }
+            }
+
+            if (!itemActual) {
+                pedido.push({ producto: producto, cantidad: cantidad });
+            } else {
+                itemActual.cantidad = cantidad;
+            }
+
+            localStorage.setItem('pedido', JSON.stringify(pedido))
+
+
+        });
+
+        const notificaciones = url => {
+            let userId = 0;
+            let socket = new WebSocket(url + '?user_id=' + userId)
+            socket.onopen = () => { }
+            socket.onmessage = (evt) => {
+                // listarPedidos();
             }
         }
-
-        if (!itemActual) {
-            pedido.push({ producto: producto, cantidad: cantidad });
-        } else {
-            itemActual.cantidad=cantidad;
-        }
-
-        localStorage.setItem('pedido',JSON.stringify(pedido))
-        
-       
-    });
+        const host = '127.0.0.1:3000'
+        const prefijoWS = 'ws://'
+        const sufijoWS = '/client'
+        const url = prefijoWS + host + sufijoWS
+        let socket = notificaciones(url)
     </script>
 </body>
+
 </html>

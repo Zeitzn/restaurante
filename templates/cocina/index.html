@@ -46,5 +46,21 @@
             <div class="col-md-2"></div>
         </div>
     </div>
+    <script>
+        const notificaciones = url => {
+          let userId = 1;
+          let socket = new WebSocket(url + '?user_id=' + userId)
+          socket.onopen = () => { }
+          socket.onmessage = (evt) => {
+            console.log(evt)
+            listarPedidos();
+          }
+        }
+        const host = '127.0.0.1:3000'
+        const prefijoWS = 'ws://'
+        const sufijoWS = '/client'
+        const url = prefijoWS + host + sufijoWS
+        let socket = notificaciones(url)
+      </script>
 </body>
 </html>

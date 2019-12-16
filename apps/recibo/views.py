@@ -65,6 +65,18 @@ def generarFactura(request, mesa='', cliente='', ruc='', direccion='', total_let
         else:
             numero_factura_vista=str(numero_factura)
         
+        oCliente=Cliente.objects.filter(numero=ruc)
+
+        if len(oCliente)<1:
+            oCliente=Cliente(
+                nombres=cliente,
+                numero=ruc,
+                direccion=direccion,
+                tipo='ruc'
+            )
+            oCliente.save()
+        else:
+            oCliente=oCliente[0]
         diccionario_pedidos = {}
         lista_pedidos=[]
         total=0
@@ -83,18 +95,10 @@ def generarFactura(request, mesa='', cliente='', ruc='', direccion='', total_let
             oPedido.tipo='factura'
             oPedido.activo=False
             oPedido.fecha=fecha
+            oPedido.cliente=oCliente
             oPedido.save()
 
-    oCliente=Cliente.objects.filter(numero=ruc)
-
-    if len(oCliente)<1:
-        oCliente=Cliente(
-            nombres=cliente,
-            numero=ruc,
-            direccion=direccion,
-            tipo='ruc'
-        )
-        oCliente.save()
+   
         
     igv=total*0.18
     context={
@@ -163,9 +167,24 @@ def generarBoleta(request, mesa='', cliente='', ruc='', direccion=''):
         else:
             numero_boleta_vista=str(numero_boleta)
         
+
+        oCliente=Cliente.objects.filter(numero=ruc)
+
+        if len(oCliente)<1:
+            oCliente=Cliente(
+                nombres=cliente,
+                numero=ruc,
+                direccion=direccion,
+                tipo='dni'
+            )
+            oCliente.save()
+        else:
+            oCliente=oCliente[0]
+        # print(oCliente)
         diccionario_pedidos = {}
         lista_pedidos=[]
         total=0
+        
         for row in pedidos:
             print(row)
             cantidad=int(row[0])
@@ -181,18 +200,10 @@ def generarBoleta(request, mesa='', cliente='', ruc='', direccion=''):
             oPedido.tipo='boleta'
             oPedido.activo=False
             oPedido.fecha=fecha
+            oPedido.cliente=oCliente
             oPedido.save()
 
-    oCliente=Cliente.objects.filter(numero=ruc)
-
-    if len(oCliente)<1:
-        oCliente=Cliente(
-            nombres=cliente,
-            numero=ruc,
-            direccion=direccion,
-            tipo='dni'
-        )
-        oCliente.save()
+    
         
     igv=total*0.18
     context={

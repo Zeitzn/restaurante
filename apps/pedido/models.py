@@ -1,7 +1,9 @@
 from django.db import models
 from apps.producto.models import Producto
+from apps.cliente.models import Cliente
 # Create your models here.
 class Pedido(models.Model):
+    cliente=models.ForeignKey(Cliente,on_delete=models.CASCADE, null=True)
     total=models.CharField(max_length=20)
     mesa=models.CharField(max_length=3)
     activo=models.BooleanField(default=True)
