@@ -217,38 +217,38 @@
                         total += element['cantidad'] * element['precio'];
                     }
                 });
-                let igv = total * 0.18;               
+                let igv = total * 0.18;
 
 
                 if (tipo == "factura") {
                     $("#id-body-factura").append(
-                    '<tr>'
-                    + '<td class="text-center" colspan="2" style="border-bottom:1px solid white; border-left:1px solid white;"></td>'
-                    + '<td style="text-align:right"><b>Sub. Total S/</b></td>'
-                    + '<td style="text-align:right">' + (total - igv).toFixed(2) + '</td>'
-                    + '</tr>'
-                    + '<tr>'
-                    + '<td class="text-center" colspan="2" style="border-bottom:1px solid white; border-left:1px solid white;"></td>'
-                    + '<td style="text-align:right"><b>I.G.V. S/</b></td>'
-                    + '<td style="text-align:right">' + igv.toFixed(2) + '</td>'
-                    + '</tr>'
-                    + '<tr>'
-                    + '<td class="text-center" colspan="2" style="border-bottom:1px solid white; border-left:1px solid white;"></td>'
-                    + '<td style="text-align:right"><b>TOTAL S/</b></td>'
-                    + '<td style="text-align:right">' + total.toFixed(2) + '</td>'
-                    + '</tr>'
-                );
+                        '<tr>'
+                        + '<td class="text-center" colspan="2" style="border-bottom:1px solid white; border-left:1px solid white;"></td>'
+                        + '<td style="text-align:right"><b>Sub. Total S/</b></td>'
+                        + '<td style="text-align:right">' + (total - igv).toFixed(2) + '</td>'
+                        + '</tr>'
+                        + '<tr>'
+                        + '<td class="text-center" colspan="2" style="border-bottom:1px solid white; border-left:1px solid white;"></td>'
+                        + '<td style="text-align:right"><b>I.G.V. S/</b></td>'
+                        + '<td style="text-align:right">' + igv.toFixed(2) + '</td>'
+                        + '</tr>'
+                        + '<tr>'
+                        + '<td class="text-center" colspan="2" style="border-bottom:1px solid white; border-left:1px solid white;"></td>'
+                        + '<td style="text-align:right"><b>TOTAL S/</b></td>'
+                        + '<td style="text-align:right">' + total.toFixed(2) + '</td>'
+                        + '</tr>'
+                    );
                     $("#id-total-factura").val(total);
                     $("#id-mesa-factura").val(mesa)
                     $("#modalFactura").modal();
                 } else {
                     $("#id-body-boleta").append(
-                     '<tr>'
-                    + '<td class="text-center" colspan="2" style="border-bottom:1px solid white; border-left:1px solid white;"></td>'
-                    + '<td style="text-align:right"><b>TOTAL S/</b></td>'
-                    + '<td style="text-align:right">' + total.toFixed(2) + '</td>'
-                    + '</tr>'
-                );
+                        '<tr>'
+                        + '<td class="text-center" colspan="2" style="border-bottom:1px solid white; border-left:1px solid white;"></td>'
+                        + '<td style="text-align:right"><b>TOTAL S/</b></td>'
+                        + '<td style="text-align:right">' + total.toFixed(2) + '</td>'
+                        + '</tr>'
+                    );
                     $("#id-total-boleta").val(total);
                     $("#id-mesa-boleta").val(mesa)
                     $("#modalBoleta").modal();
@@ -271,42 +271,76 @@
         cliente = $("#id-cliente-factura").val()
         direccion = $("#id-direccion-factura").val()
         ruc = $("#id-ruc-factura").val()
-        $("#id-table-caja").load(" #id-table-caja>*",""); 
+        $("#id-table-caja").load(" #id-table-caja>*", "");
         window.open("/recibo/factura/" + mesa + '/' + cliente + '/' + ruc + '/' + direccion + '/' + total, '_blank');
-        setTimeout(function(){ 
-            $("#id-table-caja").load(" #id-table-caja>*",""); 
+        setTimeout(function () {
+            $("#id-table-caja").load(" #id-table-caja>*", "");
         }, 4000);
         $("#modalFactura").modal('hide');
     })
 
     $("#form-boleta").on('submit', function (e) {
-        e.preventDefault()        
+        e.preventDefault()
         mesa = $("#id-mesa-boleta").val()
         cliente = $("#id-cliente-boleta").val()
         direccion = $("#id-direccion-boleta").val()
         ruc = $("#id-ruc-boleta").val()
         window.open("/recibo/boleta/" + mesa + '/' + cliente + '/' + ruc + '/' + direccion, '_blank');
-        setTimeout(function(){ 
-            $("#id-table-caja").load(" #id-table-caja>*",""); 
+        setTimeout(function () {
+            $("#id-table-caja").load(" #id-table-caja>*", "");
         }, 4000);
         $("#modalBoleta").modal('hide');
     })
 
-    function pagarPedido(mesa){
+    function pagarPedido(mesa) {
         console.log(mesa)
-        var a=confirm("¿Está seguro que el pedido ya ha sido pagado?")
+        var a = confirm("¿Está seguro que el pedido ya ha sido pagado?")
 
-        if(a){
+        if (a) {
             $.ajax({
-                method:'get',
-                url:'/pedido/pagarPedido/'+mesa,
-                success:data=>{
+                method: 'get',
+                url: '/pedido/pagarPedido/' + mesa,
+                success: data => {
                     console.log(data)
-                    $("#id-table-caja").load(" #id-table-caja>*",""); 
+                    $("#id-table-caja").load(" #id-table-caja>*", "");
                 }
             })
         }
     }
 
+    $("#id-ruc-factura").on('input', () => {
+        getByDoc('factura');
+    });
+
+    $("#id-ruc-boleta").on('input', () => {
+        getByDoc('boleta');
+    });
+
+    function getByDoc(tipo) {
+        var doc = $("#id-ruc-" + tipo).val();
+
+        if (doc.length >= 8) {
+            console.log(doc)
+            $.ajax({
+                method: 'get',
+                url: '/cliente/getByDoc/' + doc,
+                success: data => {
+                    console.log(data)
+                    if (data.length > 0) {
+                        $("#id-direccion-" + tipo).val(data[0].fields.direccion);
+                        $("#id-cliente-" + tipo).val(data[0].fields.nombres);
+                    } else {
+                        $("#id-direccion-" + tipo).val('');
+                        $("#id-cliente-" + tipo).val('');
+                    }
+
+                }
+            })
+        } else {
+            $("#id-direccion-" + tipo).val('');
+            $("#id-cliente-" + tipo).val('');
+        }
+
+    }
 </script>
 {% endblock %}

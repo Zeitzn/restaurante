@@ -24,6 +24,7 @@ urlpatterns = [
     path('pedido/', include('apps.pedido.urls')),
     path('caja/', include('apps.caja.urls')),
     path('recibo/', include('apps.recibo.urls')),
+    path('cliente/', include('apps.cliente.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('logout', logout_then_login, name='logout'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
