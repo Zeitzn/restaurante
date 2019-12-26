@@ -1,0 +1,43 @@
+{% extends 'base/base.html' %}
+{% load staticfiles %}
+{% block content %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Ventas</h1>
+    <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <input type="text" class="form-control" id="buscador" placeholder="Buscar ...">
+    </div>
+</div>
+<div class="row">
+    <table class="table table-bordered table-hover text-center datatable">
+        <thead>
+            <tr>
+                <td>TIPO</td>
+                <td>NUMERO</td>
+                <td>TOTAL(S/)</td>
+                <td>FECHA</td>        
+            </tr>
+        </thead>
+        <tbody>
+            {% for recibo in recibos %}
+            <tr>
+                {% ifequal recibo.tipo None %}
+                <td>Sin recibo</td>
+                <td>--</td>
+                {% else %}
+                <td style="text-transform: capitalize;">{{recibo.tipo}}</td>
+                <td>{{recibo.numero}}</td>
+                {% endifequal %}                
+                <td>{{recibo.total}}</td>
+                <td>{{recibo.fecha | date:'d-m-Y'}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}

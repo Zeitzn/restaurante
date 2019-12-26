@@ -20,8 +20,11 @@
 
   <!-- Custom styles for this template-->
   <link href="{% static 'caja/css/sb-admin-2.min.css' %}" rel="stylesheet">
+  <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css"> -->
+  <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"> -->
   <!-- <link href="{% static 'caja/css/normalize.css' %}" rel="stylesheet">
   <link href="{% static 'caja/css/skeleton.css' %}" rel="stylesheet"> -->
+
 </head>
 
 <body id="page-top">
@@ -47,7 +50,13 @@
       <li class="nav-item active">
         <a class="nav-link" href="{% url 'caja:home' %}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
+          <span>Inicio</span></a>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'caja:recibo' %}">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Ventas</span></a>
       </li>
 
       <!-- Divider -->
@@ -330,25 +339,41 @@
   <script src="{% static 'caja/js/numeroLetras.js' %}"></script>
   <!-- Page level plugins -->
   <script src="{% static 'caja/vendor/chart.js/Chart.min.js' %}"></script>
+  <!-- <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script> -->
+  <!-- <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>  -->
+
 
   <!-- Page level custom scripts -->
   <!-- <script src="{% static 'caja/js/demo/chart-area-demo.js' %}"></script>
   <script src="{% static 'caja/js/demo/chart-pie-demo.js' %}"></script> -->
 
   <script>
-    const notificaciones = url => {
-      let userId = 2;
-      let socket = new WebSocket(url + '?user_id=' + userId)
-      socket.onopen = () => { }
-      socket.onmessage = (evt) => {
-        console.log(evt)
-      }
-    }
-    const host = '127.0.0.1:3000'
-    const prefijoWS = 'ws://'
-    const sufijoWS = '/client'
-    const url = prefijoWS + host + sufijoWS
-    let socket = notificaciones(url)
+    $(document).ready(function () {
+      $("#buscador").keyup(function () {
+        _this = this;
+        // Show only matching TR, hide rest of them
+        $.each($(".datatable tbody tr"), function () {
+          if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
+            $(this).hide();
+          else
+            $(this).show();
+        });
+      });
+    });
+    // const notificaciones = url => {
+    //   let userId = 2;
+    //   let socket = new WebSocket(url + '?user_id=' + userId)
+    //   socket.onopen = () => { }
+    //   socket.onmessage = (evt) => {
+    //     console.log(evt)
+    //   }
+    // }
+    // const host = '127.0.0.1:3000'
+    // const prefijoWS = 'ws://'
+    // const sufijoWS = '/client'
+    // const url = prefijoWS + host + sufijoWS
+    // let socket = notificaciones(url)
   </script>
   {% block scripts %}
   {% endblock %}

@@ -35,3 +35,18 @@ def home(request):
         'pedidos':pedidos
     }
     return render(request,'caja/home.html',context)
+
+def recibo(request):
+    # facturas=Pedido.objects.filter(tipo='factura')
+    facturas=Pedido.objects.filter(activo=0)
+    context={
+        'recibos':facturas
+    }
+    return render(request,'caja/recibo.html',context)
+
+# def factura(request):
+#     facturas=Pedido.objects.filter(tipo='boleta')
+#     context={
+#         'recibos':facturas
+#     }
+#     return render(request,'caja/recibo',context)
